@@ -80,6 +80,30 @@ public class Matrix {
         return sb.toString();
     }
 
+    // 矩阵加法
+    public static Matrix add(Matrix A, Matrix B) throws Exception {
+        if (A.n != B.n || A.m != B.m) {
+            throw new Exception("矩阵加法中矩阵行列数不匹配！");
+        }
+        double[][] valueAdd = new double[A.m][A.n];
+        for (int i = 0; i < A.m; i++)
+            for (int j = 0; j < A.n; j++)
+                valueAdd[i][j] = (A.value[i][j] + B.value[i][j]);
+        return new Matrix(valueAdd);
+    }
+
+    // 矩阵减法
+    public static Matrix minus(Matrix A, Matrix B) throws Exception {
+        if (A.n != B.n || A.m != B.m) {
+            throw new Exception("矩阵减法中矩阵行列数不匹配！");
+        }
+        double[][] valueMinus = new double[A.m][A.n];
+        for (int i = 0; i < A.m; i++)
+            for (int j = 0; j < A.n; j++)
+                valueMinus[i][j] = (A.value[i][j] - B.value[i][j]);
+        return new Matrix(valueMinus);
+    }
+
     // 矩阵乘法
     public static Matrix mul(Matrix A, Matrix B) throws Exception {
         if (A.n != B.m) {
@@ -125,6 +149,17 @@ public class Matrix {
         return new Matrix(valueInv);
     }
 
+    // 取向量的第 j 个元素
+    public double get_jthElement(int j) throws Exception {
+        if (n == 1) {
+            return value[j][0];
+        }
+        if (m == 1) {
+            return value[0][j];
+        }
+        throw new Exception("将矩阵误判为向量！");
+    }
+
     // 取矩阵的第 j 列向量
     public Matrix get_jthColumnVector(int j) throws Exception {
         if (j < 0 || j >= n) {
@@ -166,5 +201,25 @@ public class Matrix {
             pos++;
         }
         return new Matrix(sub);
+    }
+
+    // 矩阵（向量）与标量比较——大于
+    public static boolean greater(Matrix m, double scalar) {
+        for (double[] line: m.value)
+            for (double e: line) {
+                if (e <= scalar)
+                    return false;
+            }
+        return true;
+    }
+
+    // 矩阵（向量）与标量比较——大于等于
+    public static boolean greaterOrEqual(Matrix m, double scalar) {
+        for (double[] line: m.value)
+            for (double e: line) {
+                if (e < scalar)
+                    return false;
+            }
+        return true;
     }
 }
