@@ -160,6 +160,19 @@ public class Matrix {
         throw new Exception("将矩阵误判为向量！");
     }
 
+    // 更新向量的第 j 个元素
+    public void set_jthElement(int j, double val) throws Exception {
+        if (n == 1) {
+            value[j][0] = val;
+        }
+        else if (m == 1) {
+            value[0][j] = val;
+        }
+        else {
+            throw new Exception("将矩阵误判为向量！");
+        }
+    }
+
     // 取矩阵的第 j 列向量
     public Matrix get_jthColumnVector(int j) throws Exception {
         if (j < 0 || j >= n) {
