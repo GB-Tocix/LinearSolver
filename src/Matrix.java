@@ -61,7 +61,7 @@ public class Matrix {
         int det = 0;
         for (int j = 0; j < n; j++) {
             Matrix sub = new Matrix(value, 0, j);
-            det += sub.det() * mul;
+            det += (value[0][j] * sub.det() * mul);
             mul *= -1;
         }
         return det;

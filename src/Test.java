@@ -12,17 +12,9 @@ public class Test {
             for (int j = 0; j < n; j++)
                 inputMatrix[i][j] = scanner.nextDouble();
         Matrix matrixA = new Matrix(inputMatrix);
-
-        m = scanner.nextInt();
-        n = scanner.nextInt();
-        inputMatrix = new double[m][n];
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                inputMatrix[i][j] = scanner.nextDouble();
-        Matrix matrixB = new Matrix(inputMatrix);
-
-        System.out.println(Matrix.mul(matrixA.T(), matrixB));
-        System.out.println(Matrix.innerProduct(matrixA.T(), matrixB));
+        System.out.println(matrixA.det());
+        System.out.println(matrixA.inv());
+        System.out.println(Matrix.mul(matrixA, matrixA.inv()));
     }
 
     public void testMatrixExtract() throws Exception {
@@ -32,7 +24,7 @@ public class Test {
 
     public void testSimplex () throws Exception {
         String path = "res/";
-        String filename = "LP1-2.txt";
+        String filename = "LP1-3.txt";
         Scanner scanner = new Scanner(new File(path + filename));
         int m = scanner.nextInt();
         int n = scanner.nextInt();
@@ -51,17 +43,20 @@ public class Test {
         //Solution s = ts.getOriginSolution();
         Simplex spx = new Simplex(lp);
         Solution bs = spx.solve();
-        System.out.println(bs);
+        // System.out.println(bs);
     }
 
     public static void main(String[] args) throws Exception{
         Test test= new Test();
+        // test.testMatrixInv();
         test.testSimplex();
     }
 
     /*
-1 2
--9 -16
+3 3
+3 -1 0
+-2 4 0
+-4 3 1
 
 4 4
 -0.6 0.8 -0.6 0.8

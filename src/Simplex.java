@@ -13,12 +13,13 @@ public class Simplex {
         for (int i = 0; i < lp.m; i++)
             indexB[i] = lp.n - lp.m + i; // A的最后m列是一个单位矩阵
         s = new Solution(lp.n, new Matrix(lp.b.value), indexB);
-        // System.out.println(s);
+        System.out.println(s);
     }
 
     public Solution solve() throws Exception {
         boolean isOptimal = false;
         int j = -1;
+        Matrix Aj = null;
         while (!isOptimal) {
             // 每一轮初始默认设置已经是最优
             isOptimal = true;
@@ -29,7 +30,7 @@ public class Simplex {
             Matrix cB_Binv = Matrix.mul(cB.T(), Binv);
             for (int i: s.indexN) {
                 double cj = lp.c.get_jthElement(i);
-                Matrix Aj = lp.A.get_jthColumnVector(i);
+                Aj = lp.A.get_jthColumnVector(i);
                 double reducedCostj = cj - Matrix.mul(cB_Binv, Aj).value[0][0];
                 if (reducedCostj < 0) {
                     j = i;
@@ -40,7 +41,6 @@ public class Simplex {
             }
             // 在还有改进空间的条件下，确认从原基中换出的变量
             if (!isOptimal) {
-                Matrix Aj = lp.A.get_jthColumnVector(j);
                 Matrix u = Matrix.mul(Binv, Aj);
                 int l = -1;
                 double thetaStar = -1;
@@ -66,7 +66,7 @@ public class Simplex {
                     s.indexB[l] = j;
                     s.updateIndexN();
                     s.updateCost(lp.c.extract(s.indexB));
-                    // System.out.println(s);
+                    System.out.println(s);
                 }
             }
         }
