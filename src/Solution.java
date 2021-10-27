@@ -57,6 +57,11 @@ public class Solution {
             sb.append(x[i]);
             sb.append(i == n - 1 ? ")" : ", ");
         }
+        sb.append("\nindexB = (");
+        for (int i = 0; i < m; i++) {
+            sb.append(indexB[i] + 1);
+            sb.append(i == m - 1 ? ")\n" : ", ");
+        }
         return sb.toString();
     }
 }

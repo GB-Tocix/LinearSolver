@@ -5,9 +5,18 @@ public class Simplex {
     LinearProgramming lp;
     Solution s;
 
-    public Simplex(LinearProgramming _lp, Solution _s) {
+    public Simplex(LinearProgramming _lp) {
         lp = _lp;
-        s = _s;
+        init_s();
+    }
+
+    // 默认约束矩阵最后m列向量构成单位矩阵
+    void init_s() {
+        int[] indexB = new int[lp.m];
+        for (int i = 0; i < lp.m; i++)
+            indexB[i] = lp.n - lp.m + i; // A的最后m列是一个单位矩阵
+        s = new Solution(lp.n, new Matrix(lp.b.value), indexB);
+        // System.out.println(s);
     }
 
     public Solution solve() throws Exception {
@@ -52,7 +61,7 @@ public class Simplex {
                 }
                 else {
                     // 更新基
-                    for (int i = 0; i < lp.m && i != l; i++) {
+                    for (int i = 0; i < lp.m; i++) {
                         double x = s.xB.get_jthElement(i);
                         s.xB.set_jthElement(i, x - thetaStar * u.get_jthElement(i));
                     }
@@ -60,6 +69,7 @@ public class Simplex {
                     s.indexB[l] = j;
                     s.updateIndexN();
                     s.updateCost(lp.c.extract(s.indexB));
+                    // System.out.println(s);
                 }
             }
         }
