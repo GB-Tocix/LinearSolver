@@ -1,6 +1,3 @@
-import java.io.File;
-import java.util.Scanner;
-
 public class Simplex {
     LinearProgramming lp;
     Solution s;

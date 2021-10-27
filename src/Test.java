@@ -32,7 +32,7 @@ public class Test {
 
     public void testSimplex () throws Exception {
         String path = "res/";
-        String filename = "LP1.txt";
+        String filename = "LP1-2.txt";
         Scanner scanner = new Scanner(new File(path + filename));
         int m = scanner.nextInt();
         int n = scanner.nextInt();
